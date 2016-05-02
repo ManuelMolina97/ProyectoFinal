@@ -1,0 +1,139 @@
+body{
+    background-color: blanchedalmond;
+}
+#contenedor{
+    padding:0px;
+    margin:0px;
+}
+p{
+    font-family: monospace;
+}
+h1{
+    font-family: monospace;
+    font-style: oblique;
+    font-size: 4em;
+    text-align: center;
+}
+p{
+    text-align: center;
+}
+#backlog,#sprint,#backlogSprint{
+    padding:5px;
+    margin:10px;
+    width:30%;
+    display:inline-block;
+    border:5px solid darkgoldenrod;
+    box-shadow: 10px 5px 5px grey;
+}
+#backlog > h2,#sprint > h2,#backlogSprint > h2{
+    font-family: sans-serif;
+    color:coral;
+}
+
+
+#backlog{
+    background-color:bisque;
+    
+}
+.historia{
+    margin-bottom: 2px;
+    
+}
+
+.historia > ul{
+    background-color:beige;
+    padding:0px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    border:1px double brown;
+}
+
+ul > li{
+    font-style: italic;
+}
+    
+h2{
+    text-align: center;
+        
+}
+ul{
+    padding:5px;
+}
+li{
+    list-style-type:none;
+    font-family: monospace;
+    font-size: 13px;
+    font-weight: bold;
+    padding:5px;
+        
+}
+#sprint{
+    background-color:burlywood;
+}
+
+#sprint > .sprint{
+    background-color: darkred;
+    padding:2px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 20px;
+    border:3px solid red;
+    margin-bottom: 2px;
+    
+}
+
+
+/*========================== INPUTS =============================*/
+
+
+#inputs_nueva_historia, #input_nuevo_sprint{
+    padding:0px;
+    padding-bottom: 5px;
+    text-align: center;
+    border: 1px solid coral;
+    background-color:darksalmon;
+    float:left;
+    box-shadow:10px 5px 5px grey;
+    border-radius: 5px 10px;
+}
+
+h2{
+    padding:3px;
+}
+
+#inputs_nueva_historia{
+    margin-left:10%;
+    padding:5px;
+    padding-top:0px;
+}
+
+#input_nuevo_sprint{
+    padding:5px;
+    padding-top: 0px;
+    margin-left:20%;
+}
+
+#btn_anadir_sprint {
+    
+}
+
+#inputs_nueva_historia > h2, #input_nuevo_sprint > h2{
+    font-family: monospace;
+    color:firebrick;
+}
+
+input{
+    padding:5px;
+    font-family: fantasy;
+    color:forestgreen;
+}
+
+#inputs_nueva_historia{
+    font-family: fantasy;
+}
+
+.info{
+    background-color: azure;
+    font-family: serif;
+}
+
