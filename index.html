@@ -2,62 +2,44 @@
 <html>
 <head>
 <meta charset="utf-8">
-<link type="text/css" rel="stylesheet" href=""/>
+<link type="text/css" rel="stylesheet" href="estilos.css"/>
 
-<title>Proyecto Manuel, Cristo y Alejandro</title>
-<style type="text/css">
-    #contenedor{
-        padding:0px;
-        margin:0px;
-    }
-    h1{
-        font-size: 4em;
-        text-align: center;
-    }
-    #backlog,#sprint,#backlogSprint{
-        padding:5px;
-        margin:10px;
-        width:30%;
-        display:inline-block;
-        border:1px solid black;
-        border-radius: 10px 10px;
-        box-shadow: 10px 5px 5px grey;
-    }
-    #ejemplo{
-        padding:0px;
-        border:1px solid black;
-        background-color: beige;
-    }
-    
-    h2{
-        text-align: center;
-        
-    }
-    ul{
-       padding:5px;
-    }
-    li{
-        list-style-type:none;
-        font-family: monospace;
-        font-size: 13px;
-        font-weight: bold;
-        padding:5px;
-        
-    }
-    #ejemplo{
-        text-align: center;
-    }
-   
-</style>
+<title>Proyecto Final</title>
 </head>
 <body>
     <div id="contenedor">
         <h1>Proyecto Scrum</h1>
+        <p>Realizado por:</p>
+        <p>Cristo Arana Deudero |
+        Manuel Domínguez Molina |
+        Alejandro Sánchez Burgos</p>
         <div id="backlog">
             <h2>Backlog</h2>
-            <div id="ejemplo" draggable="true">
-                <ul>
-                    <li id="id">ID: HUD#1</li>
+            
+        </div>
+        <div id="sprint">
+            <h2>Sprint</h2>
+            
+        </div>
+        <div id="backlogSprint">
+            <h2>Backlog-Sprint</h2>
+        
+        </div><br/>
+        <div id="inputs_nueva_historia">
+            <h2>Nueva Historia</h2>
+             <label id="">ID:<br/><input type="text" id="input_nombre_historia"/></label><br/>
+            <label id="">VALOR:<br/><input type="number" id="input_numero_vaor"/></label><br/>
+            <label id="">Descripción<br/><textarea id="input_texto_descripcion"></textarea></label><br/>
+            <input type="button" id="btn_anadir_historia" value="Añadir Historia"/>
+        </div>
+        <div id="input_nuevo_sprint">
+            <h2>Nuevo Sprint</h2>
+            <input type="button" id="btn_anadir_sprint" value="Añadir Sprint"/>
+        </div>
+       
+    </div>
+</body>
+</html>
                     <li id="valor">VALOR:XXX</li>
                     <li id="descripcion">DESCRIPCIÓN:</li>
                     <a href="">Ver detalles...</a>
