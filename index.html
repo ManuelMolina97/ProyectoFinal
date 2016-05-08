@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link type="text/css" rel="stylesheet" href="estilos.css"/>
+
+        <title>Proyecto Final</title>
+    </head>
+    <body>
+        
+        <div id="pantallaGris"></div> <!-- Este div es para que cuando salga la pantalla de añadir historia o sprint 
+                                                se vea todo gris-->
+        <h1>Proyecto Scrum</h1>
+        <p>Realizado por:</p>
+        <p>Cristo Arana | Manuel Domínguez | Alejandro Sánchez</p>
+        <div id="backlog">
+            <h2>Backlog</h2>
+            <button id="btn_nueva_historia">Nueva Historia</button>
+        </div>
+        <div id="sprint">
+            <h2>Sprint</h2>
+            <button id="btn_nuevo_sprint">Nuevo Sprint</button>
+        </div>
+        <div id="backlogSprint">
+            <h2>Backlog-Sprint</h2>        
+        </div>   
+        <br/>
+        <div id="inputs_nueva_historia" class="nueva_historia">
+            <h2></h2>
+            <label for="input_nombre_historia">ID:<br/><input type="text" id="input_nombre_historia"/></label><br/>
+            <label for="input_numero_valor">VALOR:<br/><input type="number" id="input_numero_valor"/></label><br/>
+            <label for="input_texto_descripcion">DESCRIPCIÓN:<br/><textarea id="input_texto_descripcion" placeholder="Descripción..."></textarea></label><br/>
+            <input type="button" id="btn_anadir_historia" value="Aceptar"/>
+            <input type="button" id="btn_cancelar_historia" value="Cancelar"/>
+        </div>
+        <div id="input_nuevo_sprint" class="nuevo_sprint">
+            <h2>Nuevo Sprint</h2>
+            <label for="btn_nombre_sprint">ID:<br/><input type="text" id="btn_nombre_sprint"/></label><br/>
+            <label for="btn_estado_sprint">ESTADO:<input type="checkbox" id="btn_estado_sprint"/></label><br/>
+            <label for="input_texto_descripcion_sprint">DESCRIPCIÓN:<br/><textarea id="input_texto_descripcion_sprint"></textarea></label><br/>
+            <input type="button" id="btn_id_sprint" value="Aceptar"/>
+        </div>
+
+        <script type="text/javascript" src="HistoriaHelper.js"></script>
+        <script type="text/javascript" src="VistaHistoria.js"></script>  
+        <script type="text/javascript" src="LogicaNegocioHistoria.js"></script>
+        <script type="text/javascript" src="ConexionServidor.js"></script>
+    </body>
+</html>
