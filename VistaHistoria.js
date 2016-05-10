@@ -1,5 +1,6 @@
 var VistaHistoria = {
     arrayHistorias: [],
+    //ESTE INIT DEBERÍA DE REDUCIRSE
     init: function(){
         var nuevaHistoria = document.getElementById("btn_nueva_historia");
         nuevaHistoria.addEventListener("click", this.mostrarHistoriaNueva);
@@ -10,15 +11,17 @@ var VistaHistoria = {
     },
     
     mostrarHistoriaNueva: function () {
-        var nuevaH = document.getElementById("inputs_nueva_historia");
+        var nuevaH = HistoriaHelper.getElementById("inputs_nueva_historia");
+        //var nuevaH = document.getElementById("inputs_nueva_historia");
         nuevaH.getElementsByTagName("h2")[0].innerHTML = "Crear historia";
+        nuevaH.getElementsByTagName("input")[0].removeAttribute("readonly");
         VistaHistoria.vistaFormularioEmergente(nuevaH);
     },
 
     anadirHistoriaNueva: function () {
-        var textoId = document.getElementById("input_nombre_historia").value;
-        var numberValor = document.getElementById("input_numero_valor").value;
-        var textDescripcion = document.getElementById("input_texto_descripcion").value;   
+        var textoId = HistoriaHelper.getElementByIdValue("input_nombre_historia");
+        var numberValor = HistoriaHelper.getElementByIdValue("input_numero_valor");
+        var textDescripcion = HistoriaHelper.getElementByIdValue("input_texto_descripcion");
         var historia = Object.create(HistoriaHelper);
         if (LogicaNegocioHistoria.checkInputSinValores(textoId, numberValor, textDescripcion)){
             alert("Por favor, rellene todos los campos.");
@@ -30,17 +33,26 @@ var VistaHistoria = {
             VistaHistoria.arrayHistorias.push(historia);
             historia.init(textoId, textDescripcion, numberValor);
             historia.crearHistoria();
+            
         }
+       
     },
+    
+    //ÉSTA SÍ ME GUSTA
     
     cancelarPantallaEmergente: function (){
         LogicaNegocioHistoria.limpiarFormulario();
     },
 
+    
+    //MUCHISIMAS DE ESTAS LINEAS AL HELPER 
     mostrarHistoriaModificada: function (input1, input2, input3) {
+        console.log(input1.innerHTML);
+        var idOriginal = input1.innerHTML;
         var divHistoriaMod = document.getElementById("inputs_nueva_historia");
         divHistoriaMod.getElementsByTagName("h2")[0].innerHTML = "Modificar historia"; 
         divHistoriaMod.getElementsByTagName("input")[0].value = input1.innerHTML;
+        divHistoriaMod.getElementsByTagName("input")[0].setAttribute("readonly","");
         divHistoriaMod.getElementsByTagName("input")[1].value = input2.innerHTML;
         divHistoriaMod.getElementsByTagName("textarea")[0].value = input3.innerHTML; 
         this.vistaFormularioEmergente(divHistoriaMod);
@@ -53,7 +65,12 @@ var VistaHistoria = {
             input3.innerHTML = divHistoriaMod.getElementsByTagName("textarea")[0].value;
             LogicaNegocioHistoria.limpiarFormulario();
             anadirHistoria.addEventListener("click", VistaHistoria.anadirHistoriaNueva);
-            anadirHistoria.removeEventListener("click", vistaModificacion);     
+            anadirHistoria.removeEventListener("click", vistaModificacion);
+            
+            console.log(idOriginal);
+            //ESTO ES PARA EL ARRAY, ES MEJORABLE
+            
+            LogicaNegocioHistoria.modificarHistoriaFromArray(HistoriaHelper.getHistoria(idOriginal), input1, input2, input3);
         } 
     },
     
