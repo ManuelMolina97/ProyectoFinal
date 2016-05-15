@@ -1,5 +1,5 @@
 var VistaHistoria = {
-    arrayHistorias: [],
+    
     //CALLBACKS
     
     
@@ -8,7 +8,7 @@ var VistaHistoria = {
         
         console.log("VistaHistoria intentarAnadirHistoria" + idHistoriaNueva);
         //PREPARO
-        LogicaNegocioHistoria.setCallback(VistaHistoria.mostrarHistoriaVista);
+        LogicaNegocioHistoria.setCallback(VistaHistoria.drawHistoria);
         
         //EJECUTO
         
@@ -17,19 +17,38 @@ var VistaHistoria = {
     },
     
     mostrarHistoriaVista: function(id){
-        //ESTO DEBERÍA DE SER EL MÉTODO MOSTRARHISTORIANUEVA
+        //EL METODO ESTA COPIADO
+        console.log(id);
+        var nuevaH = HistoriaHelper.getElementById("inputs_nueva_historia");
+        nuevaH.getElementsByTagName("h2")[0].innerHTML = "Crear historia";
+        nuevaH.getElementsByTagName("input")[0].removeAttribute("readonly");
+        VistaHistoria.vistaFormularioEmergente(nuevaH);
     },
-    
-    //FIN CALLBACKS
-    //ESTE INIT DEBERÍA DE REDUCIRSE
-    
-    init: function(){
+    initEventListeners: function(){
         var nuevaHistoria = document.getElementById("btn_nueva_historia");
         nuevaHistoria.addEventListener("click", this.mostrarHistoriaNueva);
         anadirHistoria = document.getElementById("btn_anadir_historia");
         anadirHistoria.addEventListener("click", this.anadirHistoriaNueva);
         var cancelarHistoria = document.getElementById("btn_cancelar_historia");
         cancelarHistoria.addEventListener("click", this.cancelarPantallaEmergente);
+    },
+    
+    drawHistoria: function(historia){
+        var nuevaHistoria = document.createElement("div");
+        nuevaHistoria.setAttribute("id", historia.id);
+        nuevaHistoria.setAttribute("draggable", "true");
+        nuevaHistoria.innerHTML = "<ul class='historia'>"+
+                                    "<li>"   +historia.id + "</li>"+
+                                    "<li>"   +historia.valor + "</li>"+
+                                    "<li>"   +historia.descripcion + "</li>"+
+                                  "</ul>"+
+                                    "<button id='modificar_historia' onclick='VistaHistoria.modificarHistoria(this.parentNode);'>"+"<img src='mod.png'/>"+"Modificar"+"</button>"+
+                                    "<button id='eliminar_historia' onclick='VistaHistoria.eliminarHistoria(this.parentNode);'>"+"<img src='del.png'/>"+"Eliminar"+"</button>"
+        
+        VistaHistoria.limpiarFormulario();
+        
+        var backlog = document.getElementById("backlog");
+        backlog.appendChild(nuevaHistoria);
     },
     
     mostrarHistoriaNueva: function () {
@@ -44,25 +63,29 @@ var VistaHistoria = {
         var textoId = HistoriaHelper.getElementByIdValue("input_nombre_historia");
         var numberValor = HistoriaHelper.getElementByIdValue("input_numero_valor");
         var textDescripcion = HistoriaHelper.getElementByIdValue("input_texto_descripcion");
-        var historia = Object.create(HistoriaHelper);
-        
+        //Object.create(VistaHistoria);
+        /*
         if (VistaHistoria.checkInputSinValores(textoId, numberValor, textDescripcion)){
             alert("Por favor, rellene todos los campos.");
         }        
 
+        else if (HistoriaHelper.checkValor(HistoriaHelper.getElementById("input_numero_valor"))){
+            alert("Coloque un valor numérico en el valor.");
+        }
         
         else if (LogicaNegocioHistoria.checkHistoriaRepetida(textoId)) {
             alert("El nombre de HU está repetido.");
         }
         
-        else {   
-            VistaHistoria.arrayHistorias.push(historia);
-            historia.init(textoId, textDescripcion, numberValor);
-            historia.crearHistoria();
-        }
+        else {*/ 
+        var historia = new Historia(textoId,numberValor,textDescripcion);
+       
+        LogicaNegocioHistoria.setCallback(VistaHistoria.drawHistoria);
+        LogicaNegocioHistoria.intentoAnadirHistoria(historia);
+        //    historia.initHistoria(textoId, numberValor, textDescripcion);
+        // historia.drawHistoria();
+        //}
     },
-    
-    //ÉSTA SÍ ME GUSTA
     
     cancelarPantallaEmergente: function (){
         VistaHistoria.limpiarFormulario();
@@ -88,12 +111,9 @@ var VistaHistoria = {
             input1.innerHTML = divHistoriaMod.getElementsByTagName("input")[0].value;
             input2.innerHTML = divHistoriaMod.getElementsByTagName("input")[1].value;
             input3.innerHTML = divHistoriaMod.getElementsByTagName("textarea")[0].value;
-            LogicaNegocioHistoria.limpiarFormulario();
+            VistaHistoria.limpiarFormulario();
             anadirHistoria.addEventListener("click", VistaHistoria.anadirHistoriaNueva);
             anadirHistoria.removeEventListener("click", vistaModificacion);
-            
-            console.log(idOriginal);
-            //ESTO ES PARA EL ARRAY, ES MEJORABLE
             
             LogicaNegocioHistoria.modificarHistoriaFromArray(HistoriaHelper.getHistoria(idOriginal), input1, input2, input3);
         } 
@@ -110,7 +130,6 @@ var VistaHistoria = {
         if (id == "" || valor == "" || descripcion == ""){
             return true;
         }else{
-            //Cómo que else vacío?
             return false;
         }
     },
@@ -137,7 +156,7 @@ var VistaHistoria = {
         VistaHistoria.mostrarHistoriaModificada(lis[0],lis[1],lis[2]);
     },
 };
-VistaHistoria.init();
+VistaHistoria.initEventListeners();
 
 
 
