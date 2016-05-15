@@ -1,18 +1,28 @@
 var LogicaNegocioHistoria = {
+    arrayHistorias: [],
+    /*
+    PREGUNTA:
+    ¿POR QUÉ ES LA VISTA QUIEN LLEVA EL ARRAY, Y NO LA LÓGICADENEGOCIO?
+    */
     //CALLBACK
     setCallback: function(callback){
         this.callback = callback;
     },
     
     //AQUÍ SE CHECKEA CONTRA EL ARRAY QUE NO ESTÉ EL HU REPETIDO.
-    intentoAnadirHistoria: function(id){
-        console.log("Primer paso anadir HU " + id);
-        if (LogicaNegocioHistoria.checkHistoriaRepetida(id)){
+    intentoAnadirHistoria: function(historia){
+        console.log("Primer paso anadir HU " + historia.id);
+        if (!LogicaNegocioHistoria.checkHistoriaRepetida(historia.id)){
             /*AQUÍ HARÍA FALTA EL ARCHIVO DE CONEXIÓN AL SERVIDOR
-        SERÍA COMO MARCAR EL CAMINO DE VUELTA conexionServidor.setCallback(LogicaNegocioHistoria.anadirHistoria);
+        SERÍA COMO MARCAR EL CAMINO DE VUELTA 
+        
         //ÉSTO CREA UN OBJETO HISTORIA CON EL ATRIBUTO ID
-        conexionServidor.accionEnBD({id:historia});
+        
         */
+            ConexionServidor.setCallback(LogicaNegocioHistoria.anadirHistoria);
+            ConexionServidor.solicitarAnadirHistoriaEnBD(historia); 
+         
+            
         }
         else{
             alert("Id de HU repetido.");
@@ -22,13 +32,13 @@ var LogicaNegocioHistoria = {
         console.log("Segundo paso anadir HU " + historia);
         if (historia.hasOwnProperty("id")){
             //AÑADIR AL ARRAY
-            VistaHistoria.arrayHistorias.push(historia.id);
+            LogicaNegocioHistoria.arrayHistorias.push(historia);
             /*ESTO ESTÁ RELACIONADO CON LA LÍNEA 12 QUE 
             SETEA LA VARIABLE callback CON LAS LÍNEAS 
             DE ESTA MISMA FUNCIÓN Y EL PARÁMETRO QUE LE PASA
             ES EN LA LÍNEA DE ABAJO, DONDE TAMBIÉN SE EJECUTA
             */
-            LogicaNegocioHistoria.callback(historia.id);
+            LogicaNegocioHistoria.callback(historia);
         }
         else{
             alert(historia.error);
@@ -36,24 +46,18 @@ var LogicaNegocioHistoria = {
     },
     
     //FIN CALLBACKS
-    
+    agregarHistoria: function(historia){
+      VistaHistoria.arrayHistorias.push(historia);  
+    },
     checkHistoriaRepetida: function(idIntroducido){
-        for(var i = 0; i < VistaHistoria.arrayHistorias.length; i++){
-            if (VistaHistoria.arrayHistorias[i].id === idIntroducido){
+        for(var i = 0; i < LogicaNegocioHistoria.arrayHistorias.length; i++){
+            if (this.arrayHistorias[i].id === idIntroducido){
                 return true;
             }
         }
         return false;
     },
-    
-    /*checkInputSinValores: function(id, valor, descripcion){
-        if (id == "" || valor == "" || descripcion == ""){
-            return true;
-        }else{
-            //Cómo que else vacío?
-            return false;
-        }
-    },*/
+   
     
     eliminarHistoriaFromArray: function(historiaDOM){
         var posicionHistoriaAEliminar = HistoriaHelper.getHistoria(historiaDOM.id);
@@ -61,7 +65,7 @@ var LogicaNegocioHistoria = {
          console.log("Despues" + VistaHistoria.arrayHistorias);
     },
     
-    modificarHistoriaFromArray: function(historiaDOM, input1, input2, input3){
+    modificarHistoriaFromArray: function(historiaDOM, input2, input3){
         var posicionHistoriaAEliminar = HistoriaHelper.getPosicionHistoria(historiaDOM.id);
         if (posicionHistoriaAEliminar!=-1){
             VistaHistoria.arrayHistorias[posicionHistoriaAEliminar].valor = input2.innerHTML;
