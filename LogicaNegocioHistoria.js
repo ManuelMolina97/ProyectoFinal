@@ -1,6 +1,14 @@
 var LogicaNegocioHistoria = {
     arrayHistorias: [],
+<<<<<<< HEAD
     //CALLBACKS
+=======
+    /*
+    PREGUNTA:
+    ¿POR QUÉ ES LA VISTA QUIEN LLEVA EL ARRAY, Y NO LA LÓGICADENEGOCIO?
+    */
+    //CALLBACK
+>>>>>>> origin/javascript
     setCallback: function(callback){
         this.callback = callback;
     },
@@ -11,8 +19,21 @@ var LogicaNegocioHistoria = {
     intentoAnadirHistoria: function(historia){
         console.log("Primer paso anadir HU " + historia.id);
         if (!LogicaNegocioHistoria.checkHistoriaRepetida(historia.id)){
+<<<<<<< HEAD
             ConexionServidor.setCallback(LogicaNegocioHistoria.anadirHistoria);
             ConexionServidor.solicitarAccionEnBD({"op": "insertar", "datos":historia});
+=======
+            /*AQUÍ HARÍA FALTA EL ARCHIVO DE CONEXIÓN AL SERVIDOR
+        SERÍA COMO MARCAR EL CAMINO DE VUELTA 
+        
+        //ÉSTO CREA UN OBJETO HISTORIA CON EL ATRIBUTO ID
+        
+        */
+            ConexionServidor.setCallback(LogicaNegocioHistoria.anadirHistoria);
+            ConexionServidor.solicitarAnadirHistoriaEnBD(historia); 
+         
+            
+>>>>>>> origin/javascript
         }
         else{
             alert("Id de HU repetido.");
@@ -23,8 +44,13 @@ var LogicaNegocioHistoria = {
         if (historia.hasOwnProperty("datos")){
             //AÑADIR AL ARRAY
             LogicaNegocioHistoria.arrayHistorias.push(historia);
+<<<<<<< HEAD
             /*ESTO ESTÁ RELACIONADO CON LA LÍNEA QUE
             SETEA LA VARIABLE callback CON LAS LÍNEAS
+=======
+            /*ESTO ESTÁ RELACIONADO CON LA LÍNEA 12 QUE 
+            SETEA LA VARIABLE callback CON LAS LÍNEAS 
+>>>>>>> origin/javascript
             DE ESTA MISMA FUNCIÓN Y EL PARÁMETRO QUE LE PASA
             ES EN LA LÍNEA DE ABAJO, DONDE TAMBIÉN SE EJECUTA
             */
@@ -78,7 +104,11 @@ var LogicaNegocioHistoria = {
 
     //FIN CALLBACKS
     agregarHistoria: function(historia){
+<<<<<<< HEAD
       VistaHistoria.arrayHistorias.push(historia);
+=======
+      VistaHistoria.arrayHistorias.push(historia);  
+>>>>>>> origin/javascript
     },
     checkHistoriaRepetida: function(idIntroducido){
         for(var i = 0; i < LogicaNegocioHistoria.arrayHistorias.length; i++){
@@ -88,14 +118,23 @@ var LogicaNegocioHistoria = {
         }
         return false;
     },
+<<<<<<< HEAD
 
 
+=======
+   
+    
+>>>>>>> origin/javascript
     eliminarHistoriaFromArray: function(historiaDOM){
         var posicionHistoriaAEliminar = HistoriaHelper.getHistoria(historiaDOM.id);
         LogicaNegocioHistoria.arrayHistorias.splice(posicionHistoriaAEliminar,1);
          console.log("Despues" + VistaHistoria.arrayHistorias);
     },
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/javascript
     modificarHistoriaFromArray: function(historiaDOM, input2, input3){
         var posicionHistoriaAEliminar = HistoriaHelper.getPosicionHistoria(historiaDOM.id);
         if (posicionHistoriaAEliminar!=-1){

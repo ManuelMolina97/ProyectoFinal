@@ -3,9 +3,14 @@ var ConexionServidor = {
     setCallback: function (callback) {
         this.callback = callback;
     },
+<<<<<<< HEAD
     solicitarAccionEnBD: function (historia) {
         console.log("[ConexionServidor.solicitarAccionEnBD]");
         console.log(historia);
+=======
+    solicitarAnadirHistoriaEnBD: function (historia) {
+        console.log("[ConexionServidor.solicitarAnadirNombre]");
+>>>>>>> origin/javascript
         this.realizarConsultaHTTP("http://localhost/ProyectoFinal/index.php", historia);
     },
     operacionEnBDTerminado: function (historia) {
