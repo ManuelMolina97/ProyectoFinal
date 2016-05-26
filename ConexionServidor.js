@@ -1,27 +1,26 @@
 var ConexionServidor = {
     consultaHTTP: false,
-    /*siResultadoInsercionEnBDEjecutar: function (funcionDeLogicaDeNegocio) {
-        this.funcionDeLogicaDeNegocio = funcionDeLogicaDeNegocio;
+    setCallback: function (callback) {
+        this.callback = callback;
     },
-    solicitarAnadirNombreEnBD: function (objetoNombre) {
-        console.log("[ConexionServidor.solicitarAnadirNombre]");
-        console.log(nombre);
-        this.realizarConsultaHTTP("http://localhost/Proyecto/index.php", objetoNombre);
+    solicitarAccionEnBD: function (historia) {
+        console.log("[ConexionServidor.solicitarAccionEnBD]");
+        console.log(historia);
+        this.realizarConsultaHTTP("http://localhost/ProyectoFinal/index.php", historia);
     },
-    AnadirEnBDTerminado: function (objetoNombre) {
-        console.log("[ConexionServidor.AnadirEnBDTerminado]");
-        console.log(objetoNombre);
-        ConexionServidor.funcionDeLogicaDeNegocio(objetoNombre);
-    },*/
+    operacionEnBDTerminado: function (historia) {
+        console.log(historia);
+        ConexionServidor.callback(historia);
+    },
 
     realizarConsultaHTTP: function (url, datos) {
         this.consultaHTTP = false;
-        if (window.XMLHttpRequest) { 
+        if (window.XMLHttpRequest) {
             this.consultaHTTP = new XMLHttpRequest();
             if (this.consultaHTTP.overrideMimeType) {
-                this.consultaHTTP.overrideMimeType('text/xml');
+                this.consultaHTTP.overrideMimeType('text/json');
             }
-        } else if (window.ActiveXObject) { 
+        } else if (window.ActiveXObject) {
             try {
                 this.consultaHTTP = new ActiveXObject("Msxml2.XMLHTTP");
             } catch (e) {
@@ -36,19 +35,17 @@ var ConexionServidor = {
             return false;
         }
         this.consultaHTTP.onreadystatechange = ConexionServidor.recogerRespuestaHTTP;
-        this.consultaHTTP.open('POST', 'index.php', true);
-        this.consultaHTTP.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
-        this.consultaHTTP.send(JSON.stringify(datos));
+        ConexionServidor.consultaHTTP.open('POST', url, true);
+        ConexionServidor.consultaHTTP.setRequestHeader("Content-Type", "application/json; charset=UTF-8");
+        ConexionServidor.consultaHTTP.send(JSON.stringify(datos));
     },
     recogerRespuestaHTTP: function () {
         if (ConexionServidor.consultaHTTP.readyState == 4) {
             if (ConexionServidor.consultaHTTP.status == 200) {
-                ConexionServidor.AnadirEnBDTerminado(JSON.parse(ConexionServidor.consultaHTTP.responseText));
+                ConexionServidor.operacionEnBDTerminado(JSON.parse(ConexionServidor.consultaHTTP.responseText));
             } else {
                 alert('Hubo problemas con la petición.');
             }
         }
     }
 };
-
-

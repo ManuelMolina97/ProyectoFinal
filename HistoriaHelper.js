@@ -1,26 +1,14 @@
 var HistoriaHelper = {
-    //ESTO NO VA AQUÍ
-    init: function (id, descripcion, valor) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.valor = valor;
-    },
-    crearHistoria: function () {
-        var nuevaHistoria = document.createElement("div");
-        nuevaHistoria.setAttribute("id", this.id);
-        nuevaHistoria.setAttribute("draggable", "true");
-        nuevaHistoria.innerHTML = "<ul class='historia'>"+
-                                    "<li>"   +this.id + "</li>"+
-                                    "<li>"  +this.valor + "</li>"+
-                                    "<li>"   +this.descripcion + "</li>"+
-                                  "</ul>"+
-                                    "<button id='modificar_historia' onclick='VistaHistoria.modificarHistoria(this.parentNode);'>"+"<img src='mod.png'/>"+"Modificar"+"</button>"+
-                                    "<button id='eliminar_historia' onclick='VistaHistoria.eliminarHistoria(this.parentNode);'>"+"<img src='del.png'/>"+"Eliminar"+"</button>"
-        VistaHistoria.limpiarFormulario();
-        var backlog = document.getElementById("backlog");
-        backlog.appendChild(nuevaHistoria);
-    },
 
+    checkValor: function(inputValor){
+        inputValor.addEventListener("keypress", function(e){
+            if (e.keyCode >= 48 && e.keyCode <=57){
+                return true;
+            }
+            return false;
+        });
+        
+    },
     getElementById: function(id){
         return document.getElementById(id);
     },
@@ -34,17 +22,17 @@ var HistoriaHelper = {
     },
     
     getHistoria: function(id){
-        for(var i=0; i<VistaHistoria.arrayHistorias.length; i++){
-            if (VistaHistoria.arrayHistorias[i].id == id){
-                return VistaHistoria.arrayHistorias[i];
+        for(var i=0; i<LogicaNegocioHistoria.arrayHistorias.length; i++){
+            if (LogicaNegocioHistoria.arrayHistorias[i].id == id){
+                return LogicaNegocioHistoria.arrayHistorias[i];
             }
         }
         return null;
     },
     
     getPosicionHistoria: function(id){
-        for(var i=0; i<VistaHistoria.arrayHistorias.length; i++){
-            if (VistaHistoria.arrayHistorias[i].id == id){
+        for(var i=0; i<LogicaNegocioHistoria.arrayHistorias.length; i++){
+            if (LogicaNegocioHistoria.arrayHistorias[i].id == id){
                 return i;
             }
         }
